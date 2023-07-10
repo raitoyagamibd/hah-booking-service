@@ -72,7 +72,7 @@ app.post('/api/search-doctors',authenticateUser, async (req, res) => {
     }
   });
 
-  app.get('/api/test', async (req, res) => {
+  app.get('/', async (req, res) => {
     return res.json({
         status: 200,
         des: "đây là test"
