@@ -358,7 +358,7 @@ async function checkDoctorAppointment(doctorId, startDate, duration) {
     return check
 }
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
   
 server.listen(PORT, (error) =>{
     if(!error){
