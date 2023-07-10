@@ -72,6 +72,13 @@ app.post('/api/search-doctors',authenticateUser, async (req, res) => {
     }
   });
 
+  app.get('/api/test', async (req, res) => {
+    return res.json({
+        status: 200,
+        des: "đây là test"
+    })
+  });
+
 app.post('/api/meeting-active', authenticateUser, async (req, res) =>{//req {meetingId,  }
   try{
     const meetRef = admin.firestore().collection('appointment').where('userid', '==', req.token.uid);
