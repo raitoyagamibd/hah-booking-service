@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
 const admin = require('firebase-admin');
 
-var vietnamTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"});
 
 const AGORA_APP_ID = "09e6a43a1b57416685152ee0d8d0ffad";
 const AGORA_APP_CERTIFICATE = "ab3e62ad090f42eab19fb449560d0cfc";
@@ -75,6 +74,7 @@ app.post('/api/search-doctors',authenticateUser, async (req, res) => {
   });
 
   app.get('/api/test', async (req, res) => {
+var vietnamTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"});
     return res.json({
         status: 200,
         des: moment(vietnamTime),
@@ -82,6 +82,7 @@ app.post('/api/search-doctors',authenticateUser, async (req, res) => {
   });
 
 app.post('/api/meeting-active', authenticateUser, async (req, res) =>{//req {meetingId,  }
+let vietnamTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"});
   try{
     const meetRef = admin.firestore().collection('appointment').where('userid', '==', req.token.uid);
     const scheduleSnapshot = await meetRef.get();
