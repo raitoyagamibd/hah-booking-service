@@ -3,6 +3,7 @@ const socketIo = require('socket.io');
 const http = require('http');
 const cors = require('cors');
 const moment = require('moment');
+require('moment-timezone');
 //const momentTimezone = require('moment-timezone');
 const bodyParser = require('body-parser');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
@@ -89,7 +90,7 @@ app.post('/api/meeting-active', authenticateUser, async (req, res) =>{//req {mee
       doc.data().meetings.forEach(mtd => {
         if(mtd.meetingId === req.body.meetingId){
           const meetDate = moment(mtd.startDate, 'YYYY-MM-DD HH:mm').add(mtd.duration, 'minutes');
-          const currentDate = moment().tz('Asia/Ho_Chi_Minh');
+          const currentDate = moment.tz('Asia/Ho_Chi_Minh');
           if(currentDate.isBefore(meetDate) && currentDate.isSameOrAfter(moment(mtd.startDate, 'YYYY-MM-DD HH:mm'))){
             meetingData = mtd;
           }
@@ -104,13 +105,13 @@ app.post('/api/meeting-active', authenticateUser, async (req, res) =>{//req {mee
     const role = RtcRole.PUBLISHER;
     const timeExpire = moment(meetingData.startDate, "YYYY-MM-DD HH:mm").add(meetingData.duration, 'minutes');
     const currentTime = Math.floor(Date.now() / 1000);
-    const durationInSecond = currentTime + timeExpire.diff(moment().tz('Asia/Ho_Chi_Minh'), "second");
+    const durationInSecond = currentTime + timeExpire.diff(moment.tz('Asia/Ho_Chi_Minh'), "second");
     const token = RtcTokenBuilder.buildTokenWithUid(AGORA_APP_ID,AGORA_APP_CERTIFICATE, channelName,0 , role, durationInSecond);
     return res.status(200).json({
       appId: AGORA_APP_ID,
       token: token,
       channelName,
-      timeOutSeconds: timeExpire.diff(moment().tz('Asia/Ho_Chi_Minh'), "second")
+      timeOutSeconds: timeExpire.diff(moment.tz('Asia/Ho_Chi_Minh'), "second")
     })
   }catch(error){
     res.status(500).json({message: error.message});
