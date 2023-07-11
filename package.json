@@ -17,6 +17,7 @@
     "firebase-admin": "^11.9.0",
     "jsonwebtoken": "^9.0.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "nodemon": "^2.0.22",
     "socket.io": "^4.7.1"
   }
