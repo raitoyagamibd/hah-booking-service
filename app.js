@@ -75,7 +75,7 @@ app.post('/api/search-doctors',authenticateUser, async (req, res) => {
   app.get('/api/test', async (req, res) => {
     return res.json({
         status: 200,
-        des: "đây là test 1"
+        des: moment.tz('Asia/Ho_Chi_Minh').toISOString(),
     })
   });
 
